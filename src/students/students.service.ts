@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Student } from './Student';
+import { Student, StudentCreatePayload } from './Student';
 
 @Injectable()
 export class StudentsService {
@@ -22,5 +22,19 @@ export class StudentsService {
 
   getStudent(id: number) {
     return this.students[id];
+  }
+
+  createStudent(student: StudentCreatePayload): Student {
+    console.log(student);
+    console.log(new Date(student.dob));
+
+    const newStudent: Student = {
+      ...student,
+      dob: new Date(student.dob)
+    };
+
+    this.students.push(newStudent);
+
+    return newStudent;
   }
 }
